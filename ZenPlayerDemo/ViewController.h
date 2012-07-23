@@ -7,11 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "ZenPlayerButton.h"
 
-@interface ViewController : UIViewController
+@interface ViewController : UIViewController {
+    
+}
 
 @property (nonatomic, retain) ZenPlayerButton* zenPlayerButton;
+
+@property (nonatomic, retain) MPMusicPlayerController *player;
+@property (nonatomic) NSTimer *timerProgress;
+
+- (void) updateTime:(NSTimer *)timer;
+- (void) queryMusic;
 
 - (IBAction) rewind:(id)sender;
 - (IBAction) forward:(id)sender;

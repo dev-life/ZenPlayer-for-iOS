@@ -16,6 +16,8 @@
 @implementation ViewController
 
 @synthesize zenPlayerButton=_zenPlayerButton;
+@synthesize player = _player;
+@synthesize timerProgress = _timerProgress;
 
 - (void)viewDidLoad
 {
@@ -29,6 +31,7 @@
                    forControlEvents:UIControlEventTouchUpInside];
 
     [self.view addSubview:self.zenPlayerButton];
+    [self queryMusic];
 }
 
 - (void)viewDidUnload
@@ -39,6 +42,45 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+}
+
+- (void)dealloc
+{
+    NSLog(@"ViewController dealloc\n");
+    [self.player endGeneratingPlaybackNotifications];
+}
+
+- (void) updateTime:(NSTimer *)timer
+{
+    if(self.player.playbackState == MPMusicPlaybackStatePlaying)
+    {
+        CGFloat progress = [self.player currentPlaybackTime] / [[self.player.nowPlayingItem valueForKey:MPMediaItemPropertyPlaybackDuration] doubleValue];
+        self.zenPlayerButton.progress = progress;
+        NSLog(@"progress : %f\n", progress);
+    }
+}
+
+- (void) queryMusic
+{
+    MPMediaQuery *q = [[MPMediaQuery alloc] init];
+    [q addFilterPredicate:[MPMediaPropertyPredicate predicateWithValue:[NSNumber numberWithInt:MPMediaTypeMusic] forProperty:MPMediaItemPropertyMediaType]];
+    [q setGroupingType:MPMediaGroupingTitle];
+    
+    self.player = [MPMusicPlayerController applicationMusicPlayer];
+    [self.player setRepeatMode:MPMusicRepeatModeAll];
+    [self.player setShuffleMode:MPMusicShuffleModeSongs];
+    [self.player setQueueWithQuery: q];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self 
+                                             selector:@selector(handleItemChanged:) 
+                                                 name:MPMusicPlayerControllerNowPlayingItemDidChangeNotification 
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(handleStateChanged:)
+                                                 name:MPMusicPlayerControllerPlaybackStateDidChangeNotification
+                                               object:nil];
+    
+    [self.player beginGeneratingPlaybackNotifications];
 }
 
 - (IBAction) rewind:(id)sender;
@@ -59,6 +101,38 @@
 - (void) zenPlayerButtonDidTouchUpInside:(id)sender;
 {
     LOG_CURRENT_METHOD;
+    if(self.zenPlayerButton.state == ZenPlayerButtonStateNormal)
+    {
+        [self.player pause];
+        [self.timerProgress invalidate];
+    }
+    else
+    {
+        [self.player play];
+        self.timerProgress = [NSTimer scheduledTimerWithTimeInterval:1.0 
+                                                              target:self 
+                                                            selector:@selector(updateTime:) 
+                                                            userInfo:nil 
+                                                             repeats:YES];
+        self.zenPlayerButton.state = ZenPlayerButtonStatePlaying;
+    }
+}
+
+#pragma mark -- MPMusicPlayerController Notifications
+- (void)handleItemChanged:(id)notification
+{
+    NSLog(@"ItemChanged:\n");
+    if(self.player.playbackState == MPMusicPlaybackStatePlaying)
+    {
+        self.zenPlayerButton.state = ZenPlayerButtonStateLoading;
+        self.zenPlayerButton.state = ZenPlayerButtonStatePlaying;
+    }
+}
+
+- (void)handleStateChanged:(id)notification
+{
+    NSLog(@"StateChanged:%d\n", self.player.playbackState);
+    
 }
 
 @end

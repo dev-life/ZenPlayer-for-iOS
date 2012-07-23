@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E927CDE15BE2082000C17B7 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E927CDD15BE2082000C17B7 /* MediaPlayer.framework */; };
 		8861706315B5951A00879D9A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8861706215B5951A00879D9A /* UIKit.framework */; };
 		8861706515B5951A00879D9A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8861706415B5951A00879D9A /* Foundation.framework */; };
 		8861706715B5951A00879D9A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8861706615B5951A00879D9A /* CoreGraphics.framework */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E927CDD15BE2082000C17B7 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		8861705E15B5951A00879D9A /* ZenPlayerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZenPlayerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8861706215B5951A00879D9A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		8861706415B5951A00879D9A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -65,6 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0E927CDE15BE2082000C17B7 /* MediaPlayer.framework in Frameworks */,
 				8861709F15B5964000879D9A /* QuartzCore.framework in Frameworks */,
 				8861706315B5951A00879D9A /* UIKit.framework in Frameworks */,
 				8861706515B5951A00879D9A /* Foundation.framework in Frameworks */,
@@ -78,6 +81,7 @@
 		8861705315B5951900879D9A = {
 			isa = PBXGroup;
 			children = (
+				0E927CDD15BE2082000C17B7 /* MediaPlayer.framework */,
 				8861709E15B5964000879D9A /* QuartzCore.framework */,
 				8861706815B5951A00879D9A /* ZenPlayerDemo */,
 				8861706115B5951A00879D9A /* Frameworks */,
@@ -337,6 +341,7 @@
 				8861707E15B5951A00879D9A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

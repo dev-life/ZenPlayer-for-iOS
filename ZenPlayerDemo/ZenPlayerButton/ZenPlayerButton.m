@@ -448,7 +448,7 @@
 - (void)dealloc
 {
     LOG_CURRENT_METHOD;
-    self.contents = nil;
+    //self.contents = nil; // TBD : Exception on a device
     self.imgCircle = nil;
     self.rotateBackKey = nil;
     self.rotateForwardKey = nil;
@@ -833,7 +833,7 @@
 - (void)dealloc
 {
     LOG_CURRENT_METHOD;
-    self.contents = nil;
+    //self.contents = nil; // TBD : Exception on a device
     self.imgPlayButton = nil;
 }
 
