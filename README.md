@@ -22,7 +22,7 @@ How to use
 2. Add **QuartzCore.framework** into your project
 3. Insert `#import "ZenPlayerButton.h"` into your code
 4. Just add below code where you'd like:
-5. 
+
 ``` objc
 // create new zen player button
 self.zenPlayerButton = [[ZenPlayerButton alloc] initWithFrame:CGRectMake(108, 178, 104, 104)];
